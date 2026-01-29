@@ -1,0 +1,73 @@
+{% extends 'users/UserBase.html' %}
+{% load static %}
+
+{% block contents %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+                
+                <!-- Header -->
+                <div class="card-header bg-dark text-white text-center">
+                    <h3 class="mb-0">Model Training Summary</h3>
+                    <small>Convolutional Neural Network Performance</small>
+                </div>
+
+                <!-- Body -->
+                <div class="card-body p-4">
+
+                    <div class="alert alert-success text-center fw-bold">
+                        ✅ Training Completed Successfully
+                    </div>
+
+                    <!-- Metrics Table -->
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-hover text-center align-middle">
+                            <thead class="table-primary">
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Value</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Training Accuracy</strong></td>
+                                    <td>{{ train_accuracy }} %</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Validation Accuracy</strong></td>
+                                    <td>{{ val_accuracy }} %</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Training Loss</strong></td>
+                                    <td>{{ train_loss }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Validation Loss</strong></td>
+                                    <td>{{ val_loss }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Action -->
+                    <div class="text-center mt-4">
+                        <a href="{% url 'Training' %}" class="btn btn-primary px-4">
+                            🔄 Train Model Again
+                        </a>
+                    </div>
+
+                </div>
+
+                <!-- Footer -->
+                <div class="card-footer text-center text-muted">
+                    CNN Training Module | Django + TensorFlow
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends 'users/UserBase.html' %}
+
+{% block contents %}
+<div class="container mt-5 mb-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-lg border-0">
+                <div class="card-header bg-primary text-white text-center">
+                    <h3 class="mb-0">Kidney Stone Detection System</h3>
+                    <small>CNN-based Medical Image Analysis</small>
+                </div>
+
+                <div class="card-body p-4">
+
+                    <!-- Upload Form -->
+                    <form method="POST" enctype="multipart/form-data" class="text-center">
+                        {% csrf_token %}
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">
+                                Upload Kidney Scan Image (CT / Ultrasound)
+                            </label>
+                            <input type="file" name="image" class="form-control" required>
+                        </div>
+
+                        <button type="submit" class="btn btn-success px-4">
+                            🔍 Predict Kidney Stone
+                        </button>
+                    </form>
+
+                    {% if result %}
+                        <hr class="my-4">
+
+                        <!-- Prediction Status -->
+                        <div class="alert 
+                            {% if result == 'Kidney Stone Detected' %}
+                                alert-danger
+                            {% else %}
+                                alert-success
+                            {% endif %}
+                            text-center fw-bold">
+                            {{ result }}
+                        </div>
+
+                        <!-- Confidence -->
+                        <p class="text-center">
+                            <strong>Prediction Confidence:</strong> {{ confidence }}%
+                        </p>
+
+                        <!-- Image Display -->
+                        {% if image_path %}
+                            <div class="text-center mb-4">
+                                <h5 class="fw-bold">Uploaded Image</h5>
+                                <img src="{{ image_path }}" 
+                                     class="img-fluid rounded shadow"
+                                     style="max-width: 400px; border: 2px solid #333;">
+                            </div>
+                        {% endif %}
+
+                        <!-- Stone Details -->
+                        {% if result == "Kidney Stone Detected" %}
+                            <div class="card mt-3 border-warning">
+                                <div class="card-header bg-warning fw-bold">
+                                    Stone Analysis Report
+                                </div>
+                                <div class="card-body">
+                                    <p><strong>Stone Size:</strong> {{ stone_size }} mm</p>
+                                    <p><strong>Severity Level:</strong> {{ severity }}</p>
+                                    <p><strong>Detected Region:</strong> {{ region }}</p>
+                                    <p><strong>Recommended Treatment:</strong> {{ treatment }}</p>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                    {% endif %}
+                </div>
+
+                <div class="card-footer text-center text-muted">
+                    © 2026 Kidney Stone Detection | Django + CNN
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
